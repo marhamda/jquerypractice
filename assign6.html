@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>jQuery UI Draggable - Default functionality</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
+<style>
+
+#background {
+
+}
+#draggable {
+width: 150px; 
+height: 150px; 
+padding: 0.5em; 
+background-color: green;
+}
+
+#accordion {
+list-style: none;
+margin: 30px 0;
+padding: 0;
+height: 200px;
+overflow: hidden;
+background: #7d8d96;}
+ 
+#accordion li {
+float: left;
+border-left:
+display: block;
+height: 170px;
+width: 50px;
+padding: 15px 0;
+overflow: hidden;
+color: #fff;
+text-decoration: none;
+font-size: 16px;
+line-height: 1.5em;
+border-left: 1px solid #fff;}
+ 
+#accordion li img {
+border: none;
+border-right: 1px solid #fff;
+float: left;
+margin: -15px 15px 0 0;
+}
+ 
+#accordion li.active {
+width: 450px;
+}
+
+
+</style>
+<script>
+
+
+var val = 0;
+$(function() {
+$( "#draggable" ).draggable();//drag and drop
+$( "#droppable" ).droppable({
+drop: function( event, ui ) {
+$( this )
+.addClass( "ui-state-highlight" )
+.find( "p" )
+.html( "Dropped!" );
+$(" #draggable" ).hide(); //animation 1
+}
+});
+});
+
+$( document ).click(function() {
+$( "#droppable" ).toggle( "blind" ); //animation2 
+});
+
+$(document).ready(function(){
+ 
+    activeItem = $("#accordion li:first");
+    $(activeItem).addClass('active');
+ 
+    $("#accordion li").hover(function(){
+        $(activeItem).animate({width: "50px"}, {duration:300, queue:false});
+        $(this).animate({width: "450px"}, {duration:300, queue:false});
+	   activeItem = this;
+    });
+ 
+});
+
+$(document).ready(function() { //Tries to increase progress bar by 25 for each click!
+$( "#progressbar" ).progressbar({
+value: val});
+
+
+$("button").click(function() {
+	val +=25;
+	});
+	});
+
+
+</script>
+</head>
+<body>
+<div id="toggle"></div>
+<div id="background">
+<div id="draggable" class="ui-widget-content">
+<ol>
+	<li> abcd </li>
+	<li> bcde </li>
+	<li> cdef </li>
+</ol>
+</div>
+<div id="droppable" class="ui-widget-header">
+<p>Drop here</p>
+</div>
+
+<ul id="accordion">
+      <li>
+        <strong>Section 1 Header</strong><br/>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis volutpat quam, non suscipit arcu accumsan at. Aliquam pellentesque.
+      </li>
+      <li>
+        <strong>Section 2 Header</strong><br/>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis volutpat quam, non suscipit arcu accumsan at. Aliquam pellentesque.
+      </li>
+      <li>
+        <strong>Section 3 Header</strong><br/>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis volutpat quam, non suscipit arcu accumsan at. Aliquam pellentesque.
+      </li>
+      <li>
+        <strong>Section 4 Header</strong><br/>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis volutpat quam, non suscipit arcu accumsan at. Aliquam pellentesque.
+    </li>
+  </ul>
+
+ <div id="progressbar"></div>
+ <button id="button"> click! </button>
+</div>
+</body>
+</html>
